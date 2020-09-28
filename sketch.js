@@ -1,5 +1,5 @@
 var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
-var packageBody,ground
+var packageBody,ground,trap,trap2,trap3;
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -18,6 +18,12 @@ function setup() {
 
 	packageSprite=createSprite(width/2, 80, 10,10);
 	packageSprite.addImage(packageIMG)
+	trap=createSprite(450,620,20,80);
+	trap2=createSprite(350,650,180,20);
+	trap2.shapeColor = color(255,0,0);
+	trap3=createSprite(260,620,20,80)
+	trap3.shapeColor=color(255,0,0)
+	trap.shapeColor=color(255,0,0);
 	packageSprite.scale=0.2
 
 	helicopterSprite=createSprite(width/2, 200, 10,10);
@@ -48,8 +54,8 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(0);
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
+  packageSprite.x= packageBody.position.x ;
+  packageSprite.y= packageBody.position.y ;
   drawSprites();
  
 }
@@ -59,8 +65,17 @@ function keyPressed() {
     // Look at the hints in the document and understand how to make the package body fall only on
    Matter.Body.setStatic(packageBody,false);
   }
+  if(keyCode === LEFT_ARROW) {
+	  helicopterSprite.x = helicopterSprite.x - 20;
+	  translation = {x:-20,y:0}
+	  Matter.Body.translate(packageBody,translation);
+  }
+  if(keyCode === RIGHT_ARROW) {
+	helicopterSprite.x = helicopterSprite.x + 20;
+	translation = {x:20,y:0}
+	Matter.Body.translate(packageBody,translation);
 }
-
+}
 
 
 
